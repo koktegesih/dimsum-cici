@@ -15,7 +15,7 @@ export default function ContactSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="text-sm font-semibold text-rose-600 tracking-widest uppercase mb-3">
+          <p className="text-sm font-semibold text-rose-700 tracking-widest uppercase mb-3">
             Kontak
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-3">
@@ -50,7 +50,7 @@ export default function ContactSection() {
             <p className="text-stone-500 text-sm">
               {storeInfo.operationalHours}
             </p>
-            <p className="text-stone-400 text-xs mt-1">
+            <p className="text-stone-500 text-xs mt-1">
               {storeInfo.operationalDays}
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function ContactSection() {
               href={generateWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-600 hover:text-emerald-700 font-medium text-sm transition-colors"
+              className="text-emerald-700 hover:text-emerald-800 font-medium text-sm transition-colors"
             >
               +{storeInfo.whatsapp}
             </a>

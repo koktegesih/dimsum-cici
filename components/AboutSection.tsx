@@ -23,7 +23,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="text-sm font-semibold text-rose-600 tracking-widest uppercase mb-3">
+          <p className="text-sm font-semibold text-rose-700 tracking-widest uppercase mb-3">
             Tentang Kami
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-stone-800">
@@ -60,9 +60,9 @@ export default function AboutSection() {
                     <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-stone-800 mb-0.5">
+                    <h3 className="font-semibold text-stone-800 mb-0.5">
                       {item.title}
-                    </h4>
+                    </h3>
                     <p className="text-stone-500 text-sm leading-relaxed">
                       {item.desc}
                     </p>
