@@ -1,4 +1,4 @@
-import { Instagram, Mail, MapPin, PhoneCall } from "lucide-react";
+import { Instagram, MapPin, PhoneCall } from "lucide-react";
 import { storeInfo } from "@/data/store";
 import { HeadingFont } from "@/lib/fonts";
 
@@ -8,10 +8,10 @@ export default function Footer() {
   return (
     <footer className="bg-stone-900 text-stone-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-[2fr_1fr_0.8fr_1.5fr] gap-10 mb-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-4">
               <span
                 className={`text-xl font-bold text-white ${HeadingFont.className}`}
               >
@@ -28,7 +28,7 @@ export default function Footer() {
             <h4 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">
               Menu Cepat
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-3 text-sm">
               <li>
                 <a
                   href="#"
@@ -64,34 +64,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Social Media */}
           <div>
             <h4 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">
-              Kontak
+              Ikuti Kami
             </h4>
-            <ul className="space-y-3 text-sm text-stone-400">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>{storeInfo.address}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <PhoneCall className="w-4 h-4 shrink-0" />
-                <span>+{storeInfo.whatsapp}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 shrink-0" />
-                <span>{storeInfo.email}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-stone-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-4">
               <a
                 href={`https://www.instagram.com/${storeInfo.instagram.replace("@", "")}/`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-stone-500 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
@@ -99,6 +81,8 @@ export default function Footer() {
               </a>
               <a
                 href={`https://www.tiktok.com/${storeInfo.tiktok}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-stone-500 hover:text-white transition-colors"
                 aria-label="TikTok"
               >
@@ -113,6 +97,29 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">
+              Kontak
+            </h4>
+            <ul className="space-y-3 text-sm text-stone-400">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                <span>{storeInfo.address}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <PhoneCall className="w-4 h-4 shrink-0" />
+                <span>+{storeInfo.whatsapp}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-stone-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-stone-500 text-sm">
               &copy; {currentYear} {storeInfo.name}. All rights reserved.
             </p>
