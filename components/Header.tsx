@@ -64,6 +64,8 @@ export default function Header() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-stone-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl transition-all"
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             <svg
               className="w-6 h-6"
@@ -92,8 +94,11 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         <div
+          id="mobile-menu"
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-80 opacity-100 pb-4" : "max-h-0 opacity-0"
+            isMenuOpen
+              ? "max-h-80 opacity-100 pb-4 visible"
+              : "max-h-0 opacity-0 invisible"
           }`}
         >
           <nav className="flex flex-col gap-1 pt-2 border-t border-stone-100">

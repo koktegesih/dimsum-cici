@@ -33,7 +33,7 @@ export default function ContactSection() {
               <MapPin className="w-6 h-6 text-rose-600" />
             </div>
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
-              Alamat
+              Lokasi Lapak
             </h3>
             <p className="text-stone-500 text-sm leading-relaxed">
               {storeInfo.address}
@@ -45,14 +45,10 @@ export default function ContactSection() {
               <Clock7 className="w-6 h-6 text-amber-600" />
             </div>
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
-              Jam Operasional
+              Jadwal Lapak
             </h3>
-            <p className="text-stone-500 text-sm">
-              {storeInfo.operationalHours}
-            </p>
-            <p className="text-stone-500 text-xs mt-1">
-              {storeInfo.operationalDays}
-            </p>
+            <p className="text-stone-500 text-sm">{storeInfo.offlineDays}</p>
+            <p className="text-stone-500 text-sm">{storeInfo.offlineHours}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-stone-100 group hover:-translate-y-1">
@@ -70,6 +66,9 @@ export default function ContactSection() {
             >
               +{storeInfo.whatsapp}
             </a>
+            <p className="text-stone-500 text-xs mt-1">
+              {storeInfo.onlineOrder}
+            </p>
           </div>
         </div>
 

@@ -120,7 +120,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-stone-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-stone-500 text-sm">
+            <p className="text-stone-400 text-sm">
               &copy; {currentYear} {storeInfo.name}. All rights reserved.
             </p>
           </div>

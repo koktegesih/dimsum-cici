@@ -21,7 +21,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-rose-600 tracking-widest uppercase mb-3">
+            <p className="text-sm font-semibold text-rose-700 tracking-widest uppercase mb-3">
               Menu
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-3">
