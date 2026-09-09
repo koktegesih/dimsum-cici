@@ -9,40 +9,48 @@ import { products } from "@/data/products";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <AboutSection />
-
-      {/* Menu Section */}
-      <section
-        id="menu"
-        className="py-20 md:py-28 bg-linear-to-b from-white via-stone-50/50 to-stone-50"
+    <>
+      <a
+        href="#konten-utama"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-medium focus:text-rose-700 focus:shadow-lg"
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-rose-700 tracking-widest uppercase mb-3">
-              Menu
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-3">
-              Pilihan Dimsum Kami
-            </h2>
-            <p className="text-stone-500 max-w-md mx-auto">
-              Pilih dimsum favorit Anda dan pesan langsung via WhatsApp
-            </p>
-          </div>
+        Lewati ke konten utama
+      </a>
+      <Header />
+      <main id="konten-utama" tabIndex={-1} className="min-h-screen bg-white">
+        <Hero />
+        <AboutSection />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* Menu Section */}
+        <section
+          id="menu"
+          className="py-20 md:py-28 bg-linear-to-b from-white via-stone-50/50 to-stone-50"
+        >
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-rose-700 tracking-widest uppercase mb-3">
+                Menu
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-3">
+                Pilihan Dimsum Kami
+              </h2>
+              <p className="text-stone-500 max-w-md mx-auto">
+                Pilih dimsum favorit Anda dan pesan langsung via WhatsApp
+              </p>
+            </div>
 
-      <ContactSection />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <ContactSection />
+      </main>
       <Footer />
       <WhatsAppButton />
-    </main>
+    </>
   );
 }
