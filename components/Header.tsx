@@ -23,7 +23,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-50 transition-[background-color,box-shadow,border-color] duration-500 ${
         scrolled
           ? "bg-white/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-stone-200/60"
           : "bg-white/70 backdrop-blur-md"
@@ -53,7 +53,7 @@ export default function Header() {
             ))}
             <a
               href="#menu"
-              className="ml-3 px-5 py-2 text-sm font-semibold text-white bg-rose-700 hover:bg-rose-800 rounded-full transition-all hover:shadow-lg hover:shadow-rose-200"
+              className="ml-3 px-5 py-2 text-sm font-semibold text-white bg-rose-700 hover:bg-rose-800 rounded-full transition-[background-color,box-shadow] hover:shadow-lg hover:shadow-rose-200"
             >
               Pesan Sekarang
             </a>
@@ -62,7 +62,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-stone-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl transition-all"
+            className="md:hidden p-2 text-stone-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl transition-[color,background-color]"
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
@@ -72,6 +72,7 @@ export default function Header() {
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               {isMenuOpen ? (
                 <path
@@ -95,7 +96,7 @@ export default function Header() {
         {/* Mobile Navigation */}
         <div
           id="mobile-menu"
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          className={`md:hidden overflow-hidden transition-[max-height,opacity,visibility] duration-300 ease-in-out ${
             isMenuOpen
               ? "max-h-80 opacity-100 pb-4 visible"
               : "max-h-0 opacity-0 invisible"

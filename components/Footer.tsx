@@ -74,16 +74,16 @@ export default function Footer() {
                 href={`https://www.instagram.com/${storeInfo.instagram.replace("@", "")}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-stone-500 hover:text-white transition-colors"
+                className="text-stone-400 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram size={20} />
+                <Instagram size={20} aria-hidden="true" />
               </a>
               <a
                 href={`https://www.tiktok.com/${storeInfo.tiktok}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-stone-500 hover:text-white transition-colors"
+                className="text-stone-400 hover:text-white transition-colors"
                 aria-label="TikTok"
               >
                 <svg
@@ -92,6 +92,7 @@ export default function Footer() {
                   height="20"
                   viewBox="0 0 24 24"
                   fill="currentColor"
+                  aria-hidden="true"
                 >
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
                 </svg>
@@ -106,11 +107,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-stone-400">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                <MapPin
+                  className="w-4 h-4 mt-0.5 shrink-0"
+                  aria-hidden="true"
+                />
                 <span>{storeInfo.address}</span>
               </li>
               <li className="flex items-center gap-3">
-                <PhoneCall className="w-4 h-4 shrink-0" />
+                <PhoneCall className="w-4 h-4 shrink-0" aria-hidden="true" />
                 <span>+{storeInfo.whatsapp}</span>
               </li>
             </ul>

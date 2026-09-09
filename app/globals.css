@@ -21,8 +21,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Header sticky menutupi judul section saat navigasi lewat anchor. */
+section[id],
+main[id] {
+  scroll-margin-top: 5rem;
+}
+
+@supports (text-wrap: balance) {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-rose-700);
+  outline-offset: 3px;
+}
+
 /* Selection color */
 ::selection {
-  background-color: #be123c;
+  background-color: var(--color-rose-700);
   color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

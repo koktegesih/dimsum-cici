@@ -38,8 +38,8 @@ export default function AboutSection() {
             <div className="absolute -inset-4 bg-linear-to-br from-rose-100 to-amber-100 rounded-3xl blur-2xl opacity-60" />
             <div className="relative bg-linear-to-br from-rose-50 to-amber-50 rounded-2xl p-8 flex items-center justify-center aspect-square max-h-105">
               <Image
-                src="/images/logo.png"
-                alt="logo"
+                src="/images/logo-transparant.png"
+                alt={`Logo ${storeInfo.name}`}
                 width={320}
                 height={320}
                 className="rounded-2xl object-cover drop-shadow-xl"
@@ -57,7 +57,10 @@ export default function AboutSection() {
               {features.map((item) => (
                 <div key={item.title} className="flex items-start gap-4 group">
                   <div className="shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                    <CheckCircle2
+                      className="w-5 h-5 text-emerald-500"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div>
                     <h3 className="font-semibold text-stone-800 mb-0.5">

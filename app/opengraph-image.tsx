@@ -3,7 +3,7 @@ import { storeInfo } from "@/data/store";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = `${storeInfo.name} — ${storeInfo.tagline}`;
+export const alt = `${storeInfo.name}: ${storeInfo.tagline}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -50,7 +50,7 @@ export default function OpengraphImage() {
           fontSize: 28,
           fontWeight: 600,
           color: "#ffffff",
-          backgroundColor: "#be123c",
+          backgroundColor: "#c20039",
           padding: "18px 44px",
           borderRadius: 999,
         }}

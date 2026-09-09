@@ -3,13 +3,13 @@ import { storeInfo } from "@/data/store";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${storeInfo.name} — ${storeInfo.tagline}`,
+    name: `${storeInfo.name}: ${storeInfo.tagline}`,
     short_name: storeInfo.name,
     description: storeInfo.description,
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
-    theme_color: "#be123c",
+    theme_color: "#c20039",
     lang: "id",
     icons: [
       {
