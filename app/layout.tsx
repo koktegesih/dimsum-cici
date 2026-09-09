@@ -3,9 +3,10 @@ import { Analytics } from "@vercel/analytics/next";
 import { BodyFont } from "@/lib/fonts";
 import { storeInfo } from "@/data/store";
 import { products, formatPrice } from "@/data/products";
+import { offlineDayName } from "@/lib/schedule";
 import "./globals.css";
 
-const title = `${storeInfo.name} — Dimsum Segar & Lezat`;
+const title = `${storeInfo.name} - Dimsum Segar & Lezat`;
 const description =
   "Pesan dimsum segar berkualitas dengan cita rasa autentik. Dimsum Cici siap antar ke pintu Anda!";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(storeInfo.url),
   title: {
     default: title,
-    template: `%s | ${storeInfo.name}`,
+    template: `%s - ${storeInfo.name}`,
   },
   description,
   keywords: [
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#be123c",
+  themeColor: "#c20039",
 };
 
 const prices = products.map((product) => product.price);
@@ -70,20 +71,12 @@ const jsonLd = {
     addressRegion: "Papua Tengah",
     addressCountry: "ID",
   },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Sunday",
-      opens: "07:00",
-      closes: "09:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Sunday",
-      opens: "16:00",
-      closes: "17:00",
-    },
-  ],
+  openingHoursSpecification: storeInfo.offlineSlots.map((slot) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: offlineDayName,
+    opens: slot.open,
+    closes: slot.close,
+  })),
   sameAs: [
     `https://www.instagram.com/${storeInfo.instagram.replace("@", "")}/`,
     `https://www.tiktok.com/${storeInfo.tiktok}`,

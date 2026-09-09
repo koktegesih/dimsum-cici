@@ -1,5 +1,6 @@
 import { storeInfo } from "@/data/store";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
+import { offlineHoursLabel } from "@/lib/schedule";
 import { MapPin, Smartphone, Clock7, ArrowRight } from "lucide-react";
 
 const steps = [
@@ -28,9 +29,9 @@ export default function ContactSection() {
 
         {/* Contact Cards */}
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-stone-100 group hover:-translate-y-1">
+          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-300 border border-stone-100 group hover:-translate-y-1">
             <div className="bg-rose-50 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-rose-100 transition-colors">
-              <MapPin className="w-6 h-6 text-rose-600" />
+              <MapPin className="w-6 h-6 text-rose-600" aria-hidden="true" />
             </div>
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
               Lokasi Lapak
@@ -40,20 +41,23 @@ export default function ContactSection() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-stone-100 group hover:-translate-y-1">
+          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-300 border border-stone-100 group hover:-translate-y-1">
             <div className="bg-amber-50 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-amber-100 transition-colors">
-              <Clock7 className="w-6 h-6 text-amber-600" />
+              <Clock7 className="w-6 h-6 text-amber-600" aria-hidden="true" />
             </div>
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
               Jadwal Lapak
             </h3>
             <p className="text-stone-500 text-sm">{storeInfo.offlineDays}</p>
-            <p className="text-stone-500 text-sm">{storeInfo.offlineHours}</p>
+            <p className="text-stone-500 text-sm">{offlineHoursLabel}</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-stone-100 group hover:-translate-y-1">
+          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-300 border border-stone-100 group hover:-translate-y-1">
             <div className="bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-100 transition-colors">
-              <Smartphone className="w-6 h-6 text-emerald-600" />
+              <Smartphone
+                className="w-6 h-6 text-emerald-600"
+                aria-hidden="true"
+              />
             </div>
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
               WhatsApp
@@ -92,7 +96,10 @@ export default function ContactSection() {
                     {step.text}
                   </p>
                   {i < steps.length - 1 && (
-                    <ArrowRight className="hidden md:block w-4 h-4 text-stone-600 absolute top-3 -right-3" />
+                    <ArrowRight
+                      className="hidden md:block w-4 h-4 text-stone-500 absolute top-3 -right-3"
+                      aria-hidden="true"
+                    />
                   )}
                 </div>
               ))}
