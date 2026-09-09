@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { Product, formatPrice } from "@/data/products";
+import {
+  Product,
+  ProductBadge,
+  badgeLabels,
+  formatPrice,
+} from "@/data/products";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 
@@ -7,11 +12,18 @@ interface ProductCardProps {
   product: Product;
 }
 
+// Amber khusus menandai produk unggulan; netral dipakai untuk label faktual agar
+// hijau tetap berarti WhatsApp saja.
+const badgeStyles: Record<ProductBadge, string> = {
+  "best-seller": "bg-amber-400 text-stone-900",
+  new: "bg-stone-900 text-white",
+};
+
 export default function ProductCard({ product }: ProductCardProps) {
   const imageSrc = product.image || "/images/logo.png";
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl hover:shadow-stone-200/50 transition-all duration-500 hover:-translate-y-1">
+    <article className="group bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-500 hover:-translate-y-1">
       {/* Image */}
       <div className="relative h-52 bg-stone-100 overflow-hidden">
         <Image
@@ -27,6 +39,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             {formatPrice(product.price)}
           </span>
         </div>
+
+        {product.badge && (
+          <span
+            className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold shadow-sm ${badgeStyles[product.badge]}`}
+          >
+            {badgeLabels[product.badge]}
+          </span>
+        )}
       </div>
 
       {/* Content */}
@@ -44,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Pesan produk ${product.name} melalui WhatsApp`}
-          className="w-full flex items-center justify-center gap-2 bg-rose-700 hover:bg-rose-800 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-rose-200/40"
+          className="w-full flex items-center justify-center gap-2 bg-rose-700 hover:bg-rose-800 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-[background-color,box-shadow] hover:shadow-lg hover:shadow-rose-200/40"
         >
           <WhatsAppIcon className="w-4 h-4" />
           Pesan via WhatsApp

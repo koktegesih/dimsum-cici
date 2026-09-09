@@ -1,10 +1,18 @@
+export type ProductBadge = "best-seller" | "new";
+
 export interface Product {
   id: string;
   name: string;
   price: number;
   description: string;
   image: string;
+  badge?: ProductBadge;
 }
+
+export const badgeLabels: Record<ProductBadge, string> = {
+  "best-seller": "Best Seller",
+  new: "Baru",
+};
 
 export const products: Product[] = [
   {
