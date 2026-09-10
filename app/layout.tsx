@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { BodyFont } from "@/lib/fonts";
 import { storeInfo } from "@/data/store";
-import { products, formatPrice } from "@/data/products";
+import { products, formatPrice, productPrices } from "@/data/products";
 import { offlineDayName } from "@/lib/schedule";
 import "./globals.css";
 
@@ -54,7 +54,7 @@ export const viewport: Viewport = {
   themeColor: "#c20039",
 };
 
-const prices = products.map((product) => product.price);
+const prices = products.flatMap(productPrices);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -62,6 +62,7 @@ const jsonLd = {
   name: storeInfo.name,
   description: storeInfo.description,
   url: storeInfo.url,
+  image: products.map((product) => `${storeInfo.url}${product.image}`),
   telephone: `+${storeInfo.whatsapp}`,
   servesCuisine: ["Dimsum", "Chinese", "Asian"],
   priceRange: `${formatPrice(Math.min(...prices))} - ${formatPrice(Math.max(...prices))}`,
@@ -90,11 +91,11 @@ const jsonLd = {
         "@type": "MenuItem",
         name: product.name,
         description: product.description,
-        offers: {
+        offers: productPrices(product).map((price) => ({
           "@type": "Offer",
-          price: product.price,
+          price,
           priceCurrency: "IDR",
-        },
+        })),
       })),
     },
   },

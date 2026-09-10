@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { storeInfo } from "@/data/store";
-import { products, formatPrice } from "@/data/products";
+import { products, priceLabel } from "@/data/products";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 import { HeadingFont } from "@/lib/fonts";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
@@ -14,7 +14,7 @@ const highlights = [
 ];
 
 const heroProduct =
-  products.find((product) => product.id === "quick-melt") ?? products[0];
+  products.find((product) => product.id === "cheddar") ?? products[0];
 
 export default function Hero() {
   return (
@@ -26,10 +26,13 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-orange-50/40 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 md:py-20 lg:py-24">
+      {/* Memudarkan dasar hero ke putih agar menyatu dengan section menu. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-linear-to-b from-transparent to-white" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-20 md:pt-12 md:pb-24 lg:pt-16 lg:pb-24">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-center">
           {/* Copy */}
-          <div className="text-center lg:text-left">
+          <div className="text-center">
             <LapakStatus />
 
             <h1
@@ -38,11 +41,11 @@ export default function Hero() {
               {storeInfo.name}
             </h1>
 
-            <p className="text-lg md:text-xl text-stone-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+            <p className="text-lg md:text-xl text-stone-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {storeInfo.tagline}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-center items-center">
               <a
                 href="#menu"
                 className="w-full sm:w-auto px-8 py-3.5 text-white bg-rose-700 hover:bg-rose-800 font-semibold rounded-full text-base transition-[background-color,box-shadow,transform] hover:shadow-xl hover:shadow-rose-200/50 hover:-translate-y-0.5"
@@ -59,6 +62,21 @@ export default function Hero() {
                 Chat WhatsApp
               </a>
             </div>
+
+            {/* Highlights */}
+            <div className="mt-10 flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-6 max-w-md mx-auto">
+              {highlights.map(({ icon: Icon, label }) => (
+                <div key={label} className="text-center">
+                  <Icon
+                    className="w-8 h-8 mx-auto mb-3 text-rose-800"
+                    aria-hidden="true"
+                  />
+                  <p className="text-xs font-medium text-stone-600 tracking-wide uppercase">
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Product photo */}
@@ -70,7 +88,7 @@ export default function Hero() {
                 fill
                 loading="eager"
                 fetchPriority="high"
-                sizes="(max-width: 1024px) 90vw, 40vw"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 384px, 448px"
                 className="object-cover"
               />
             </div>
@@ -78,25 +96,10 @@ export default function Hero() {
             <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl shadow-stone-300/40 border border-stone-100 px-5 py-3 text-center">
               <p className="text-xs text-stone-500">{heroProduct.name}</p>
               <p className="text-base font-bold text-rose-700">
-                {formatPrice(heroProduct.price)}
+                {priceLabel(heroProduct)}
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="mt-24 lg:mt-20 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-          {highlights.map(({ icon: Icon, label }) => (
-            <div key={label} className="text-center">
-              <Icon
-                className="w-8 h-8 mx-auto mb-3 text-rose-800"
-                aria-hidden="true"
-              />
-              <p className="text-xs font-medium text-stone-600 tracking-wide uppercase">
-                {label}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

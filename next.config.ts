@@ -13,6 +13,10 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains",
+  },
+  {
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
@@ -29,6 +33,11 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Next 16 membulatkan quality ke nilai terdekat di daftar ini, jadi 65 harus didaftarkan.
+  images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [65, 75],
+  },
   async headers() {
     return [
       {

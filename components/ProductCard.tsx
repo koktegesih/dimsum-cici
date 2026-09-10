@@ -3,13 +3,13 @@ import {
   Product,
   ProductBadge,
   badgeLabels,
-  formatPrice,
+  categoryLabels,
+  priceLabel,
 } from "@/data/products";
-import { generateWhatsAppUrl } from "@/lib/whatsapp";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 interface ProductCardProps {
   product: Product;
+  onOpen: (product: Product) => void;
 }
 
 // Amber khusus menandai produk unggulan; netral dipakai untuk label faktual agar
@@ -19,26 +19,34 @@ const badgeStyles: Record<ProductBadge, string> = {
   new: "bg-stone-900 text-white",
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, onOpen }: ProductCardProps) {
   const imageSrc = product.image || "/images/logo.png";
+  const featured = product.featured === true;
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-500 hover:-translate-y-1">
+    <article
+      className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-500 hover:-translate-y-1 ${
+        featured ? "sm:flex-row sm:col-span-2 lg:col-span-4" : ""
+      }`}
+    >
       {/* Image */}
-      <div className="relative h-52 bg-stone-100 overflow-hidden">
+      <div
+        className={`relative aspect-square bg-stone-100 overflow-hidden ${
+          featured ? "sm:w-72 sm:shrink-0" : ""
+        }`}
+      >
         <Image
           src={imageSrc}
           alt={`Gambar produk ${product.name}`}
           fill
-          sizes="(max-width: 768px) 100vw, 25vw"
+          quality={65}
+          sizes={
+            featured
+              ? "(max-width: 640px) 100vw, 18rem"
+              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          }
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        {/* Price badge */}
-        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm border border-stone-100 rounded-full px-3 py-1">
-          <span className="text-rose-700 font-bold text-sm">
-            {formatPrice(product.price)}
-          </span>
-        </div>
 
         {product.badge && (
           <span
@@ -50,25 +58,43 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div
+        className={`flex flex-col grow p-5 ${featured ? "sm:justify-center sm:p-7" : ""}`}
+      >
+        <div className="flex flex-wrap items-center gap-2 mb-2.5">
+          <span className="rounded-full bg-rose-50 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-rose-700">
+            {categoryLabels[product.category]}
+          </span>
+          {product.pieces != null && (
+            <span className="text-xs font-medium text-stone-500">
+              {product.pieces} pcs
+            </span>
+          )}
+        </div>
+
         <h3 className="text-lg font-bold text-stone-800 mb-1.5 group-hover:text-rose-700 transition-colors">
           {product.name}
         </h3>
 
-        <p className="text-stone-500 text-sm mb-5 line-clamp-2 leading-relaxed">
+        <p
+          className={`text-stone-500 text-sm mb-4 leading-relaxed ${
+            featured ? "sm:text-base" : "line-clamp-2"
+          }`}
+        >
           {product.description}
         </p>
 
-        <a
-          href={generateWhatsAppUrl(product.name)}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Pesan produk ${product.name} melalui WhatsApp`}
-          className="w-full flex items-center justify-center gap-2 bg-rose-700 hover:bg-rose-800 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-[background-color,box-shadow] hover:shadow-lg hover:shadow-rose-200/40"
+        <p className="text-rose-700 font-bold mb-4">{priceLabel(product)}</p>
+
+        <button
+          type="button"
+          onClick={() => onOpen(product)}
+          className={`mt-auto w-full rounded-xl bg-rose-700 px-4 py-2.5 text-sm font-semibold text-white transition-[background-color,box-shadow] hover:bg-rose-800 hover:shadow-lg hover:shadow-rose-200/40 ${
+            featured ? "sm:mt-0 sm:w-auto sm:self-start sm:px-6" : ""
+          }`}
         >
-          <WhatsAppIcon className="w-4 h-4" />
-          Pesan via WhatsApp
-        </a>
+          Lihat Detail
+        </button>
       </div>
     </article>
   );

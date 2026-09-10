@@ -19,7 +19,10 @@ const features = [
 
 export default function AboutSection() {
   return (
-    <section id="tentang" className="py-20 md:py-28 bg-white">
+    <section
+      id="tentang"
+      className="py-20 md:py-28 bg-linear-to-b from-white via-stone-50/50 to-stone-50"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
