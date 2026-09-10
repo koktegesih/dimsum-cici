@@ -10,7 +10,9 @@
   --color-foreground: var(--foreground);
 }
 
+/* Persen (bukan px) agar setelan ukuran font pengguna tetap dihormati. */
 html {
+  font-size: 90%;
   scroll-behavior: smooth;
 }
 

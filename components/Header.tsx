@@ -16,8 +16,8 @@ export default function Header() {
 
   const navLinks = [
     { href: "#", label: "Beranda" },
-    { href: "#tentang", label: "Tentang" },
     { href: "#menu", label: "Menu" },
+    { href: "#tentang", label: "Tentang" },
     { href: "#kontak", label: "Kontak" },
   ];
 
@@ -41,16 +41,22 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-stone-600 hover:text-rose-700 transition-colors rounded-lg hover:bg-rose-50"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav
+            className="hidden md:flex items-center gap-1"
+            aria-label="Navigasi utama"
+          >
+            <ul className="flex items-center gap-1">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="relative block px-4 py-2 text-sm font-medium text-stone-600 hover:text-rose-700 transition-colors rounded-lg hover:bg-rose-50"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <a
               href="#menu"
               className="ml-3 px-5 py-2 text-sm font-semibold text-white bg-rose-700 hover:bg-rose-800 rounded-full transition-[background-color,box-shadow] hover:shadow-lg hover:shadow-rose-200"
@@ -102,17 +108,23 @@ export default function Header() {
               : "max-h-0 opacity-0 invisible"
           }`}
         >
-          <nav className="flex flex-col gap-1 pt-2 border-t border-stone-100">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="py-2.5 px-3 text-stone-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors font-medium text-sm"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav
+            className="flex flex-col gap-1 pt-2 border-t border-stone-100"
+            aria-label="Navigasi seluler"
+          >
+            <ul className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block py-2.5 px-3 text-stone-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors font-medium text-sm"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <a
               href="#menu"
               onClick={() => setIsMenuOpen(false)}

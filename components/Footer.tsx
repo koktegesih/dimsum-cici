@@ -39,18 +39,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#tentang"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Tentang Kami
-                </a>
-              </li>
-              <li>
-                <a
                   href="#menu"
                   className="text-stone-400 hover:text-white transition-colors"
                 >
                   Menu Dimsum
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#tentang"
+                  className="text-stone-400 hover:text-white transition-colors"
+                >
+                  Tentang Kami
                 </a>
               </li>
               <li>
