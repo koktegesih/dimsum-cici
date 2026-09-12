@@ -1,6 +1,6 @@
 import { storeInfo } from "@/data/store";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
-import { offlineHoursLabel } from "@/lib/schedule";
+import { offlineSpots } from "@/lib/schedule";
 import { MapPin, Smartphone, Clock7, ArrowRight } from "lucide-react";
 
 const steps = [
@@ -36,9 +36,19 @@ export default function ContactSection() {
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
               Lokasi Lapak
             </h3>
-            <p className="text-stone-500 text-sm leading-relaxed">
-              {storeInfo.address}
-            </p>
+            <div className="space-y-2">
+              {offlineSpots.map((spot) => (
+                <p
+                  key={spot.dayLabel}
+                  className="text-stone-500 text-sm leading-relaxed"
+                >
+                  <span className="font-semibold text-stone-700">
+                    {spot.dayLabel}
+                  </span>{" "}
+                  {spot.place}
+                </p>
+              ))}
+            </div>
           </div>
 
           <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-300 border border-stone-100 group hover:-translate-y-1">
@@ -48,8 +58,16 @@ export default function ContactSection() {
             <h3 className="font-semibold text-stone-800 mb-1.5 text-sm uppercase tracking-wide">
               Jadwal Lapak
             </h3>
-            <p className="text-stone-500 text-sm">{storeInfo.offlineDays}</p>
-            <p className="text-stone-500 text-sm">{offlineHoursLabel}</p>
+            <div className="space-y-2">
+              {offlineSpots.map((spot) => (
+                <p key={spot.dayLabel} className="text-stone-500 text-sm">
+                  <span className="font-semibold text-stone-700">
+                    {spot.dayLabel}
+                  </span>{" "}
+                  {spot.hoursLabel}
+                </p>
+              ))}
+            </div>
           </div>
 
           <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg hover:shadow-stone-200/50 transition-[box-shadow,transform] duration-300 border border-stone-100 group hover:-translate-y-1">

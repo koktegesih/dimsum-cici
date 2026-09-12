@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { BodyFont } from "@/lib/fonts";
 import { storeInfo } from "@/data/store";
 import { products, formatPrice, productPrices } from "@/data/products";
-import { offlineDayName } from "@/lib/schedule";
+import { offlineSpots } from "@/lib/schedule";
 import "./globals.css";
 
 const title = `${storeInfo.name} - Dimsum Segar & Lezat`;
@@ -72,12 +72,14 @@ const jsonLd = {
     addressRegion: "Papua Tengah",
     addressCountry: "ID",
   },
-  openingHoursSpecification: storeInfo.offlineSlots.map((slot) => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: offlineDayName,
-    opens: slot.open,
-    closes: slot.close,
-  })),
+  openingHoursSpecification: offlineSpots.flatMap((spot) =>
+    spot.slots.map((slot) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: spot.schemaDay,
+      opens: slot.open,
+      closes: slot.close,
+    })),
+  ),
   sameAs: [
     `https://www.instagram.com/${storeInfo.instagram.replace("@", "")}/`,
     `https://www.tiktok.com/${storeInfo.tiktok}`,

@@ -18,21 +18,25 @@ const toMinutes = (time: string) => {
   return hours * 60 + minutes;
 };
 
-export const offlineDayName = DAY_NAMES[storeInfo.offlineDayIndex];
-
-export const offlineHoursLabel = `${storeInfo.offlineSlots
-  .map((slot) => `${slot.open} - ${slot.close}`)
-  .join(" & ")} WIT`;
+export const offlineSpots = storeInfo.offlineSpots.map((spot) => ({
+  ...spot,
+  schemaDay: DAY_NAMES[spot.dayIndex],
+  hoursLabel: `${spot.slots
+    .map((slot) => `${slot.open} - ${slot.close}`)
+    .join(" & ")} WIT`,
+}));
 
 export function isLapakOpen(now: Date): boolean {
   const wit = new Date(now.getTime() + WIT_OFFSET_MINUTES * 60_000);
-
-  if (wit.getUTCDay() !== storeInfo.offlineDayIndex) return false;
-
+  const day = wit.getUTCDay();
   const current = wit.getUTCHours() * 60 + wit.getUTCMinutes();
 
-  return storeInfo.offlineSlots.some(
-    (slot) =>
-      current >= toMinutes(slot.open) && current < toMinutes(slot.close),
+  return offlineSpots.some(
+    (spot) =>
+      spot.dayIndex === day &&
+      spot.slots.some(
+        (slot) =>
+          current >= toMinutes(slot.open) && current < toMinutes(slot.close),
+      ),
   );
 }
