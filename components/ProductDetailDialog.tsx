@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowLeft, X } from "lucide-react";
+import { ArrowLeft, CalendarClock, Plus, X } from "lucide-react";
 import {
   Product,
   categoryLabels,
@@ -10,17 +10,17 @@ import {
   priceLabel,
   productGallery,
 } from "@/data/products";
-import { generateWhatsAppUrl } from "@/lib/whatsapp";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 interface ProductDetailDialogProps {
   product: Product | null;
   onClose: () => void;
+  onAdd: (product: Product, variantName?: string) => void;
 }
 
 export default function ProductDetailDialog({
   product,
   onClose,
+  onAdd,
 }: ProductDetailDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -31,7 +31,8 @@ export default function ProductDetailDialog({
     if (!dialog) return;
 
     if (product && !dialog.open) {
-      setActiveIndex(0);
+      // Produk bervarian tidak punya harga dasar, jadi varian pertama langsung dipilih.
+      setActiveIndex(product.variants?.length ? 1 : 0);
       dialog.showModal();
     } else if (!product && dialog.open) {
       dialog.close();
@@ -40,9 +41,6 @@ export default function ProductDetailDialog({
 
   const gallery = product ? productGallery(product) : [];
   const variant = product?.variants?.[activeIndex - 1];
-  const orderLabel = variant
-    ? `${product?.name} - ${variant.name}`
-    : product?.name;
 
   return (
     <dialog
@@ -107,6 +105,16 @@ export default function ProductDetailDialog({
                 {product.description}
               </p>
 
+              {product.preOrderNote ? (
+                <p className="mb-6 flex items-start gap-2 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900">
+                  <CalendarClock
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  />
+                  {product.preOrderNote}
+                </p>
+              ) : null}
+
               {product.variants?.length ? (
                 <div className="mb-6">
                   <p className="mb-3 text-sm font-semibold text-stone-800">
@@ -121,16 +129,23 @@ export default function ProductDetailDialog({
                           type="button"
                           aria-pressed={isActive}
                           onClick={() => setActiveIndex(index + 1)}
-                          className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors ${
+                          className={`rounded-xl border px-4 py-2 text-left text-sm font-medium transition-colors ${
                             isActive
                               ? "border-rose-700 bg-rose-50 text-rose-700"
                               : "border-stone-200 text-stone-600 hover:border-stone-300 hover:bg-stone-50"
                           }`}
                         >
-                          {item.name}
-                          <span className="ml-2 text-xs text-stone-500">
-                            {formatPrice(item.price)}
+                          <span className="block">
+                            {item.name}
+                            <span className="ml-2 text-xs text-stone-500 tabular-nums">
+                              {formatPrice(item.price)}
+                            </span>
                           </span>
+                          {item.pieces != null ? (
+                            <span className="block text-xs text-stone-500">
+                              Isi {item.pieces} pcs
+                            </span>
+                          ) : null}
                         </button>
                       );
                     })}
@@ -147,15 +162,17 @@ export default function ProductDetailDialog({
                 </p>
 
                 <div className="mt-5 flex flex-col gap-3">
-                  <a
-                    href={generateWhatsAppUrl(orderLabel)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 rounded-full bg-emerald-700 px-6 py-3.5 font-semibold text-white transition-[background-color,box-shadow,transform] hover:bg-emerald-800 hover:shadow-lg hover:shadow-emerald-200/50 hover:-translate-y-0.5"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onAdd(product, variant?.name);
+                      onClose();
+                    }}
+                    className="flex items-center justify-center gap-2 rounded-full bg-rose-700 px-6 py-3.5 font-semibold text-white transition-[background-color,box-shadow,transform] hover:bg-rose-800 hover:shadow-lg hover:shadow-rose-200/50 hover:-translate-y-0.5"
                   >
-                    <WhatsAppIcon className="h-5 w-5" />
-                    Pesan via WhatsApp
-                  </a>
+                    <Plus className="h-5 w-5" aria-hidden="true" />
+                    Tambah ke Pesanan
+                  </button>
 
                   <button
                     type="button"

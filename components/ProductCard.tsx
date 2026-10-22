@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CalendarClock, Plus } from "lucide-react";
 import {
   Product,
   ProductBadge,
@@ -6,10 +7,12 @@ import {
   categoryLabels,
   priceLabel,
 } from "@/data/products";
+import { requiresVariant } from "@/lib/cart";
 
 interface ProductCardProps {
   product: Product;
   onOpen: (product: Product) => void;
+  onAdd: (product: Product, variantName?: string) => void;
 }
 
 // Amber khusus menandai produk unggulan; netral dipakai untuk label faktual agar
@@ -19,9 +22,14 @@ const badgeStyles: Record<ProductBadge, string> = {
   new: "bg-stone-900 text-white",
 };
 
-export default function ProductCard({ product, onOpen }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  onOpen,
+  onAdd,
+}: ProductCardProps) {
   const imageSrc = product.image || "/images/logo.png";
   const featured = product.featured === true;
+  const hasVariants = requiresVariant(product);
 
   return (
     <article
@@ -86,15 +94,49 @@ export default function ProductCard({ product, onOpen }: ProductCardProps) {
 
         <p className="text-rose-700 font-bold mb-4">{priceLabel(product)}</p>
 
-        <button
-          type="button"
-          onClick={() => onOpen(product)}
-          className={`mt-auto w-full rounded-xl bg-rose-700 px-4 py-2.5 text-sm font-semibold text-white transition-[background-color,box-shadow] hover:bg-rose-800 hover:shadow-lg hover:shadow-rose-200/40 ${
-            featured ? "sm:mt-0 sm:w-auto sm:self-start sm:px-6" : ""
-          }`}
+        {product.preOrderNote ? (
+          <p className="mb-4 flex items-start gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-xs font-medium text-amber-900">
+            <CalendarClock
+              className="mt-0.5 h-4 w-4 shrink-0"
+              aria-hidden="true"
+            />
+            {product.preOrderNote}
+          </p>
+        ) : null}
+
+        <div
+          className={`mt-auto flex gap-2 ${featured ? "sm:mt-0 sm:justify-start" : ""}`}
         >
-          Lihat Detail
-        </button>
+          <button
+            type="button"
+            onClick={() => onOpen(product)}
+            className={`grow rounded-xl border border-stone-200 px-4 py-2.5 text-sm font-semibold text-stone-700 transition-colors hover:bg-stone-50 hover:text-rose-700 ${
+              featured ? "sm:grow-0 sm:px-6" : ""
+            }`}
+          >
+            Lihat Detail
+          </button>
+
+          <button
+            type="button"
+            onClick={() => (hasVariants ? onOpen(product) : onAdd(product))}
+            aria-label={
+              hasVariants
+                ? `Pilih varian ${product.name}`
+                : `Tambah ${product.name} ke pesanan`
+            }
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-700 text-white transition-[background-color,box-shadow] hover:bg-rose-800 hover:shadow-lg hover:shadow-rose-200/40 ${
+              featured ? "sm:h-12 sm:w-auto sm:px-6 sm:gap-2" : ""
+            }`}
+          >
+            <Plus className="h-5 w-5" aria-hidden="true" />
+            {featured ? (
+              <span className="hidden text-sm font-semibold sm:inline">
+                Tambah
+              </span>
+            ) : null}
+          </button>
+        </div>
       </div>
     </article>
   );
