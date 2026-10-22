@@ -3,12 +3,15 @@
 import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductDetailDialog from "@/components/ProductDetailDialog";
+import CartBar from "@/components/CartBar";
+import CartDialog from "@/components/CartDialog";
 import {
   Product,
   ProductCategory,
   categoryLabels,
   products,
 } from "@/data/products";
+import { CartItem, addToCart, cartTotal, requiresVariant, setQty } from "@/lib/cart";
 
 type Filter = "semua" | ProductCategory;
 
@@ -26,11 +29,25 @@ const filterLabels: Record<Filter, string> = {
 export default function MenuSection() {
   const [filter, setFilter] = useState<Filter>("semua");
   const [selected, setSelected] = useState<Product | null>(null);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const visible =
     filter === "semua"
       ? products
       : products.filter((product) => product.category === filter);
+
+  const count = items.reduce((sum, item) => sum + item.qty, 0);
+  const total = cartTotal(items);
+
+  const handleAdd = (product: Product, variantName?: string) => {
+    if (requiresVariant(product) && !variantName) {
+      setSelected(product);
+      return;
+    }
+
+    setItems((current) => addToCart(current, product.id, variantName));
+  };
 
   return (
     <section id="menu" className="py-20 md:py-28 bg-white">
@@ -81,6 +98,7 @@ export default function MenuSection() {
               key={product.id}
               product={product}
               onOpen={setSelected}
+              onAdd={handleAdd}
             />
           ))}
         </div>
@@ -89,6 +107,19 @@ export default function MenuSection() {
       <ProductDetailDialog
         product={selected}
         onClose={() => setSelected(null)}
+        onAdd={handleAdd}
+      />
+
+      <CartBar count={count} total={total} onOpen={() => setCartOpen(true)} />
+
+      <CartDialog
+        open={cartOpen}
+        items={items}
+        onClose={() => setCartOpen(false)}
+        onChangeQty={(productId, variantName, qty) =>
+          setItems((current) => setQty(current, productId, variantName, qty))
+        }
+        onClear={() => setItems([])}
       />
     </section>
   );
