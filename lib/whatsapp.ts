@@ -1,15 +1,12 @@
 import { storeInfo } from "@/data/store";
 
+export const buildWhatsAppUrl = (message: string): string =>
+  `https://wa.me/${storeInfo.whatsapp}?text=${encodeURIComponent(message)}`;
+
 export const generateWhatsAppUrl = (productName?: string): string => {
-  const baseUrl = `https://wa.me/${storeInfo.whatsapp}`;
+  const message = productName
+    ? `Halo Kak, saya ingin memesan *${productName}*.\nMohon info ketersediaan dan cara pemesanannya. Terima kasih!`
+    : `Halo Kak, saya ingin memesan dimsum.\nMohon info menu dan cara pemesanannya. Terima kasih!`;
 
-  let message: string;
-
-  if (productName) {
-    message = `Halo Kak, saya ingin memesan *${productName}*.\nMohon info ketersediaan dan cara pemesanannya. Terima kasih!`;
-  } else {
-    message = `Halo Kak, saya ingin memesan dimsum.\nMohon info menu dan cara pemesanannya. Terima kasih!`;
-  }
-
-  return `${baseUrl}?text=${encodeURIComponent(message)}`;
+  return buildWhatsAppUrl(message);
 };
