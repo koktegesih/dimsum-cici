@@ -5,6 +5,7 @@ export interface ProductVariant {
   name: string;
   price: number;
   image: string;
+  pieces?: number;
 }
 
 export interface Product {
@@ -19,6 +20,7 @@ export interface Product {
   badge?: ProductBadge;
   // Tampil sebagai kartu lebar di baris pertama grid menu.
   featured?: boolean;
+  preOrderNote?: string;
 }
 
 export const badgeLabels: Record<ProductBadge, string> = {
@@ -42,16 +44,19 @@ export const products: Product[] = [
     image: "/images/products/menu-large-birthday.jpeg",
     badge: "new",
     featured: true,
+    preOrderNote: "Pesan minimal H-1 sebelum hari acara",
     variants: [
       {
         name: "Small",
         price: 55000,
         image: "/images/products/menu-small-birthday.jpeg",
+        pieces: 8,
       },
       {
         name: "Large",
         price: 150000,
         image: "/images/products/menu-large-birthday.jpeg",
+        pieces: 20,
       },
     ],
   },

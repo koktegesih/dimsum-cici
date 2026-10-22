@@ -8,6 +8,8 @@ export const storeInfo = {
   address:
     "Jl. Jend. Ahmad Yani (Bandara Lama), Kwamki, Kec. Mimika Baru, Kabupaten Mimika, Papua Tengah",
   onlineOrder: "Terima pesanan setiap hari",
+  delivery:
+    "Diantar lewat kurir dari SP 1. Ongkir menyesuaikan jarak ke alamat Anda, konfirmasi lebih lanjut lewat WhatsApp.",
   // dayIndex mengikuti Date.getDay(): 0 Minggu, 6 Sabtu.
   offlineSpots: [
     {
