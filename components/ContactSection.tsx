@@ -1,7 +1,7 @@
 import { storeInfo } from "@/data/store";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 import { offlineSpots } from "@/lib/schedule";
-import { MapPin, Smartphone, Clock7, ArrowRight } from "lucide-react";
+import { MapPin, Smartphone, Clock7, ArrowRight, Truck } from "lucide-react";
 
 const steps = [
   { num: 1, text: "Pilih menu dimsum favorit Anda" },
@@ -122,6 +122,11 @@ export default function ContactSection() {
                 </div>
               ))}
             </div>
+
+            <p className="mt-10 flex items-center justify-center gap-2 text-center text-sm text-stone-300">
+              <Truck className="w-4 h-4 shrink-0" aria-hidden="true" />
+              {storeInfo.delivery}
+            </p>
           </div>
         </div>
       </div>
